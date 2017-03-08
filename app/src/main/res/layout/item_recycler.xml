@@ -12,10 +12,4 @@
         android:text="1"
         android:background="@drawable/item_bg"/>
 
-  <!--  <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@color/colorAccent"
-        android:alpha="0.5"/>-->
-
 </LinearLayout>
