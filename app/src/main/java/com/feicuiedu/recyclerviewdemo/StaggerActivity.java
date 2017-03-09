@@ -84,6 +84,6 @@ public class StaggerActivity extends AppCompatActivity {
 
     @OnClick(R.id.btnAdd)
     public void onClick() {
-        mRecyclerAdapter.addData(1);
+        mRecyclerAdapter.addData();
     }
 }

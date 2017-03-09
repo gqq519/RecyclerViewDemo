@@ -55,12 +55,12 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
     }
 
     // 加一条数据
-    public void addData(int position){
-        mData.add(position,"insert "+position);
-        mHeights.add(position, (int) (200+Math.random()*400));
-        notifyItemInserted(position);
-//        notifyDataSetChanged();
-        notifyItemRangeChanged(position,mData.size()-position);
+    public void addData(){
+        mData.add("insert data");
+        mHeights.add((int) (200+Math.random()*400));
+//        notifyItemInserted(position);
+        notifyDataSetChanged();
+//        notifyItemRangeChanged(position,mData.size()-position);
 
 //        notifyItemChanged(int position);
 //        更新列表position位置上的数据可以调用

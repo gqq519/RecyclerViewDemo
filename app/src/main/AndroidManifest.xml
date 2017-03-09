@@ -12,6 +12,10 @@
 
         </activity>
         <activity android:name=".StaggerActivity">
+
+        </activity>
+
+        <activity android:name=".zhy.StaggeredGridLayoutActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
