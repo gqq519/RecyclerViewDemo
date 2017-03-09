@@ -110,7 +110,6 @@ public class LinearRecyclerAdapter extends RecyclerView.Adapter<LinearRecyclerAd
             super(itemView);
             // 两个参数的！！
             ButterKnife.bind(this,itemView);
-
         }
     }
 

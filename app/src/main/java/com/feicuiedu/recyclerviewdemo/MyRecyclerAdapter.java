@@ -22,38 +22,61 @@ import butterknife.ButterKnife;
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>{
 
     private List<String> mData = new ArrayList<>();
-    private List<Integer> heights;
+    private List<Integer> mHeights = new ArrayList<>();
 
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
 
-    // 获取item的随机高度：也可以在onBindViewHolder里面设置
-    public void getRandomHeight(List<String> lists){
-        heights = new ArrayList<>();
-        for (int i = 0; i < lists.size(); i++) {
-            heights.add((int)(200+Math.random()*400));
-        }
-    }
+//    // 获取item的随机高度：也可以在onBindViewHolder里面设置
+//    public void getRandomHeight(List<String> lists){
+//        heights = new ArrayList<>();
+//        for (int i = 0; i < lists.size(); i++) {
+//            heights.add((int)(200+Math.random()*400));
+//        }
+//    }
 
     // 设置数据
-    public void setData(List<String> data){
-        getRandomHeight(data);
+    public void setData(List<String> data,List<Integer> heights){
+
+        mHeights.clear();
+        mHeights.addAll(heights);
         mData.clear();
         mData.addAll(data);
         notifyDataSetChanged();
     }
 
-    // 删除数据
+    // 删除一条数据
     public void removeData(int position) {
         mData.remove(position);
-        getRandomHeight(mData);
+        mHeights.remove(position);
         notifyItemRemoved(position);
+//        notifyDataSetChanged();
+        notifyItemRangeChanged(position,mData.size()-position);
     }
 
+    // 加一条数据
     public void addData(int position){
-        mData.add(position,"insert ok");
+        mData.add(position,"insert "+position);
+        mHeights.add(position, (int) (200+Math.random()*400));
         notifyItemInserted(position);
-        getRandomHeight(mData);
+//        notifyDataSetChanged();
+        notifyItemRangeChanged(position,mData.size()-position);
+
+//        notifyItemChanged(int position);
+//        更新列表position位置上的数据可以调用
+//        notifyItemInserted(int position)
+//        列表position位置添加一条数据时可以调用，伴有动画效果
+//        notifyItemRemoved(int position)
+//        列表position位置移除一条数据时调用，伴有动画效果
+//        notifyItemMoved(int fromPosition, int toPosition)
+//        列表fromPosition位置的数据移到toPosition位置时调用，伴有动画效果
+//        notifyItemRangeChanged(int positionStart, int itemCount)
+//        列表从positionStart位置到itemCount数量的列表项进行数据刷新
+//        notifyItemRangeInserted(int positionStart, int itemCount)
+//        列表从positionStart位置到itemCount数量的列表项批量添加数据时调用，伴有动画效果
+//        notifyItemRangeRemoved(int positionStart, int itemCount)
+//        列表从positionStart位置到itemCount数量的列表项批量删除数据时调用，伴有动画效果
+
     }
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
@@ -80,7 +103,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 //        holder.mTvItem.setLayoutParams(layoutParams);
 
         ViewGroup.LayoutParams layoutParams = holder.mTvItem.getLayoutParams();
-        layoutParams.height = heights.get(position);
+        layoutParams.height = mHeights.get(position);
         holder.mTvItem.setLayoutParams(layoutParams);
 
         holder.mTvItem.setText(mData.get(position));

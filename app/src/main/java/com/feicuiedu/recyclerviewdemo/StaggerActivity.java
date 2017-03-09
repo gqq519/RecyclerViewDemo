@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.view.MotionEvent;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public class StaggerActivity extends AppCompatActivity {
     private List<String> mData;
 
     private MyRecyclerAdapter mRecyclerAdapter;
+    private List<Integer> mHeights;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class StaggerActivity extends AppCompatActivity {
 
         // 瀑布流:设置水平和垂直
         mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4,StaggeredGridLayoutManager.VERTICAL));
+//        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.HORIZONTAL));
 
         // 设置item的添加和删除的动画
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -70,11 +73,13 @@ public class StaggerActivity extends AppCompatActivity {
 
     private void initData() {
         mData = new ArrayList<>();
+        mHeights = new ArrayList<>();
         for (int i = 'A'; i < 'z'; i++)
         {
             mData.add("" + (char) i);
+            mHeights.add((int)(200+Math.random()*400));
         }
-        mRecyclerAdapter.setData(mData);
+        mRecyclerAdapter.setData(mData,mHeights);
     }
 
     @OnClick(R.id.btnAdd)
