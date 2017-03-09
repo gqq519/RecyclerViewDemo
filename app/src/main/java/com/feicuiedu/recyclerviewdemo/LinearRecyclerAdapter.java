@@ -1,13 +1,10 @@
 package com.feicuiedu.recyclerviewdemo;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,41 +16,36 @@ import butterknife.ButterKnife;
  * Created by gqq on 2017/3/7.
  */
 
-public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.ViewHolder>{
+public class LinearRecyclerAdapter extends RecyclerView.Adapter<LinearRecyclerAdapter.ViewHolder>{
 
     private List<String> mData = new ArrayList<>();
-    private List<Integer> heights;
 
     private OnItemClickListener mClickListener;
     private OnItemLongClickListener mLongClickListener;
 
-    // 获取item的随机高度：也可以在onBindViewHolder里面设置
-    public void getRandomHeight(List<String> lists){
-        heights = new ArrayList<>();
-        for (int i = 0; i < lists.size(); i++) {
-            heights.add((int)(200+Math.random()*400));
-        }
-    }
-
     // 设置数据
     public void setData(List<String> data){
-        getRandomHeight(data);
         mData.clear();
         mData.addAll(data);
         notifyDataSetChanged();
     }
 
+    public void ItemMoved(int fromPosition, int toPosition,List<String> data) {
+
+        mData.clear();
+        mData.addAll(data);
+        notifyItemMoved(fromPosition,toPosition);
+    }
+
     // 删除数据
     public void removeData(int position) {
         mData.remove(position);
-        getRandomHeight(mData);
         notifyItemRemoved(position);
     }
 
     public void addData(int position){
         mData.add(position,"insert ok");
         notifyItemInserted(position);
-        getRandomHeight(mData);
     }
 
     public void setOnItemClickListener(OnItemClickListener clickListener) {
@@ -78,10 +70,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.Vi
 //        int height = (int) ((Math.random()*100)+100);
 //        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,height);
 //        holder.mTvItem.setLayoutParams(layoutParams);
-
-        ViewGroup.LayoutParams layoutParams = holder.mTvItem.getLayoutParams();
-        layoutParams.height = heights.get(position);
-        holder.mTvItem.setLayoutParams(layoutParams);
 
         holder.mTvItem.setText(mData.get(position));
 
